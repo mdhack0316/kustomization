@@ -1,35 +1,54 @@
-
-
 resources: 
 - db/
 - message-broker/
 - nginx/
 
+#Using Patches
 
-# Comman Transformers
+##  Replace The NO. Of Replicas  - Method  JSON 6902 Patch
+patches:
+- target: 
+    kind: Deployment
+    name: nginx-deployment
+  patch: |-
+    - op: replace 
+      path: /spec/replicas
+      value: 5
 
-# 1. Labels
-commonLabels: 
-  new: kustomization
+
+##  Second Method - Strategic Merge Patch
+
+patches: 
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: 
+        name: nginx-deployment
+      spec: 
+        replicas: 6
 
 
-# 2. Names- Suffix and Prefix 
 
-namePrefix:  mayank-
-nameSuffix:  -modi
+## replace labels
 
-# 3. Annotations
+patches:
+- target: 
+    kind: Deployment
+    name: nginx-deployment
+  patch: |-
+    - op: replace 
+      path: /spec/template/metadata/labels/component
+      value:  mayank
 
-commonAnnotations:
-  mayank: modi
 
-# 4. Giving Namespace 
 
-namespace: modiji
+##adding the new labels
 
-#5 Providing IMages
 
-images: 
-- name: nginx
-  newName: httpd
-  newTag: "v1.0"
+- target: 
+    kind: Deployment
+    name: nginx-deployment
+  patch: |-
+    - op: add 
+      path: /spec/template/metadata/labels/org
+      value: prod
