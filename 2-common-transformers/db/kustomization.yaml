@@ -1,0 +1,6 @@
+
+
+resources:
+- db-config.yaml
+- db-depl.yaml
+- db-service.yaml
