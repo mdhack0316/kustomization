@@ -1,0 +1,9 @@
+configMapGenerator: 
+  - name: cmmayank
+    literals: 
+    - password=password2
+
+
+resources: 
+  - db/nginx-dep.yaml
+    #  - db/cm.yaml
