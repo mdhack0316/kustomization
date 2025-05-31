@@ -1,0 +1,35 @@
+
+
+resources: 
+- db/
+- message-broker/
+- nginx/
+
+
+# Comman Transformers
+
+# 1. Labels
+commonLabels: 
+  new: kustomization
+
+
+# 2. Names- Suffix and Prefix 
+
+namePrefix:  mayank-
+nameSuffix:  -modi
+
+# 3. Annotations
+
+commonAnnotations:
+  mayank: modi
+
+# 4. Giving Namespace 
+
+namespace: modiji
+
+#5 Providing IMages
+
+images: 
+- name: nginx
+  newName: httpd
+  newTag: "v1.0"
